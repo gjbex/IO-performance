@@ -1,0 +1,6 @@
+# data files starting with tmp_
+tmp_*.csv
+tmp_*.parquet
+tmp_*.h5
+tmp_*.txt
+tmp_*.dat
