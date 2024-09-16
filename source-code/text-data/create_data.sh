@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+#
+# This script creates
+#  - a directory for the data
+#  - the individual data files in that directory
+#  - a TextIndex text and index file
+#  - a zip files that contains all the text files
+#  - a tar files that contains all the text files
+#
+# To create the text files, the script uses the `../data-generation/create_text_data.py`
+# script.  To create the text and index file for TextIndex, the script uses the
+# `index_text_files.py` script.
+#
+# The scripts takes the following command line arguments:
+#  - the name of the directory to write the files in,
+#  - the number of text files to create.
+#  - the maximum length of the words in the text files.
+
+# Check the number of arguments
+if [ "$#" -ne 3 ]; then
+    echo "Usage: $0 <directory> <number of text files> <max word length>"
+    exit 1
+fi
+
+# Check that the directory does not exist
+if [ -d "$1" ]; then
+    echo "Directory $1 already exists"
+    exit 1
+fi
+
+# Create the directory
+mkdir "$1"
+
+# Create the text files
+for i in $(seq 1 $2); do
+    python ../data-generation/create_text_data.py \
+        --words=1 \
+        --max-word-length=$3 \
+        --output-file "$1"/seq$(printf "%06d" $i).txt
+done
+
+# Create the TextIndex text and index file
+python index_text_files.py "$1/seq*.txt" "$1.txt"
+
+# Create the zip file
+zip -q -j "$1.zip" "$1"/seq*.txt
+
+# Create the tar file
+tar -cf "$1.tar" "$1"/seq*.txt
