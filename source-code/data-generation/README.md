@@ -6,6 +6,8 @@ conversion.
 
 ## What is it?
 
+### CSV data generation
+
 1. `create_csv_data.py`: script to create one or more CSV files with a column
    of timestamps and any number of columns with random double precision data.
    The number of rows can also be specified.
@@ -14,8 +16,20 @@ conversion.
 1. `concat_csv_to_parquet.py`: script to concatenate a CSV file to a Parquet
    file.  The script uses polars lazy API to deal with very large files.  Note
    that a temporary file is created to store the concatenated data.
+
+### Text data generation
+
 1. `create_text_data.py`: script to generate text data with given
    characteristics.
+
+### Image data generation
+
+1. `create_image_data.sh`: Bash script to generate an image file based on a
+   template (`template.tif`).  An annotation is superimposed on the resulting image.
+1. `template.tif`: template image to use as a background.
+1. `convert_tiff_to_numpy.py`: Python script to convert a TIFF image to a NumPy
+   array, saved as a `.npy` file.
+
 
 
 ## How to use?
@@ -48,4 +62,24 @@ To generate a text file with 1000 lines of 80 characters each, run
 
 ```bash
 $ python create_text_data.py --output data.txt --words 1000 --max-words-per-line 80
+```
+
+
+### `create_image_data.sh`
+
+To generate an image file based on the template with the string
+"text-annotation" superimposed on it, and the rsulting image saved as
+`data.tif`, run
+
+```bash 
+$ ./create_image_data.sh text-annotation data.tif
+```
+
+
+### `convert_tiff_to_numpy.py`
+
+To convert a TIFF image to a NumPy array, run
+
+```bash 
+$ python convert_tiff_to_numpy.py data.tif
 ```
