@@ -25,10 +25,13 @@ conversion.
 ### Image data generation
 
 1. `create_image_data.sh`: Bash script to generate an image file based on a
-   template (`template.tif`).  An annotation is superimposed on the resulting image.
+   template (`template.tif`).  An annotation is superimposed on the resulting
+   image.
 1. `template.tif`: template image to use as a background.
 1. `convert_tiff_to_numpy.py`: Python script to convert a TIFF image to a NumPy
    array, saved as a `.npy` file.
+1. `concat_numpy_to_hdf5.py`: Python script to store NumPy arrays in an HDF5
+   file.
 
 
 
@@ -82,4 +85,12 @@ To convert a TIFF image to a NumPy array, run
 
 ```bash 
 $ python convert_tiff_to_numpy.py data.tif
+```
+
+### `concat_numpy_to_hdf5.py`
+
+To store NumPy arrays in an HDF5 file, run
+
+```bash 
+$ python concat_numpy_to_hdf5.py 'img/img*.npy' data.h5
 ```
