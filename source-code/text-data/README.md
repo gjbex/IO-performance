@@ -15,6 +15,7 @@ memory.
 1. `create_data.sh`: Bash script that creates a directory with a number of
    text files, each containing a number of lines of text.  It also creates
    the necessary files for the benchmarks.
+1. `create_data.slurm`: Slurm script that runs the `create_data.sh` script.
 
 
 ### Baseline
