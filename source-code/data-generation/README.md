@@ -33,6 +33,10 @@ conversion.
 1. `concat_numpy_to_hdf5.py`: Python script to store NumPy arrays in an HDF5
    file.
 
+### Labels
+
+1. `create_labels.py`: script to generate a CSV file with labels for the
+   generated data.
 
 
 ## How to use?
@@ -94,3 +98,14 @@ To store NumPy arrays in an HDF5 file, run
 ```bash 
 $ python concat_numpy_to_hdf5.py 'img/img*.npy' data.h5
 ```
+
+### `create_labels.py`
+
+To generate a CSV file with labels for the generated data, run
+
+```bash 
+$ python create_labels.py data.csv 'data/*.txt' --types int:2 str:5  --output data_lables.csv
+```
+This will create a CSV file with three columns, the first column is the
+filename of the data file, the second is an integer with values 0 or 1, the
+third a string with values A', ..., 'E'.
