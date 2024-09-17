@@ -13,4 +13,5 @@ dependencies:
   - scikit-image
   - certifi
   - matplotlib
+  - datasets
 prefix: /home/gjb/mambaforge/envs/io_performance
