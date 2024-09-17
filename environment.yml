@@ -10,4 +10,7 @@ dependencies:
   - jupyterlab
   - ca-certificates
   - openssl
+  - scikit-image
+  - certifi
+  - matplotlib
 prefix: /home/gjb/mambaforge/envs/io_performance
