@@ -43,3 +43,8 @@ memory.
 
 1. `benchmark_tar.py`: Python script that benchmarks reading individual text
    files from a tar file.
+
+### arrow format
+
+1. `benchmark_arrow.py`: Python script that benchmarks reading individual text
+   files from an arrow/datasets file.
