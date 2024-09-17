@@ -7,3 +7,6 @@ tmp_*.dat
 tmp_*.zip
 tmp_*.tar
 tmp_*.gz
+
+# data directory
+tmp_*/
