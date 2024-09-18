@@ -47,5 +47,7 @@ memory.
 
 ### arrow format
 
+1. `concat_txt_to_dataset.py`: script to concatenate text files into a Huggingface
+   dataset, including labels.
 1. `benchmark_arrow.py`: Python script that benchmarks reading individual text
    files from an arrow/datasets file.
