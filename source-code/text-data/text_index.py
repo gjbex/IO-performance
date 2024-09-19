@@ -14,6 +14,7 @@ a method to return the number of text files in the concatenated text file.
 '''
 
 from collections import namedtuple
+from functools import lru_cache
 
 
 FileIndex = namedtuple('FileIndex', ['offset', 'nr_bytes'])
@@ -28,7 +29,7 @@ class TextIndex:
         - the second column is the number of characters in the text file.
     '''
 
-    def __init__(self, text_file_name, idx_file_name=None):
+    def __init__(self, text_file_name, idx_file_name=None, max_cache_size=128):
         '''Initialize the TextIndex object by reading the index file.
         '''
         self._text_file_name = text_file_name
@@ -38,6 +39,7 @@ class TextIndex:
         else:
             self._idx_file_name = idx_file_name
         self._index = self._read_index()
+        self.read_text = lru_cache(maxsize=max_cache_size)(self._read_text)
 
     def __len__(self):
         '''Return the number of text files in the concatenated text file.
@@ -76,7 +78,7 @@ class TextIndex:
                 prev_nr_char += index[name][1]
         return index
 
-    def read_text(self, query, nr_bytes_to_read=None):
+    def _read_text(self, query, nr_bytes_to_read=None):
         '''Read the text file by specifying the name of the text file, or by the
         sequential index in the concatenated text file.  Additionally, the user
         can specify the number of characters to read from the text file.

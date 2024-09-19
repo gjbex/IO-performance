@@ -16,14 +16,15 @@ def main():
     parser = argparse.ArgumentParser(description='Benchmark text index method')
     parser.add_argument('text_file', help='Path to the text file to read from')
     parser.add_argument('--index-file', nargs='?', help='Path to the index file')
-    parser.add_argument('--nr-reads', type=int, help='Number of files to read')
+    parser.add_argument('--nr-reads', type=int, default=10_000, help='Number of files to read')
+    parser.add_argument('--cache-size', type=int, default=128, help='Size of the cache')
     args = parser.parse_args()
 
     index_file = args.index_file
     if not index_file:
         index_file = args.text_file + '.idx'
 
-    text_index = TextIndex(args.text_file, index_file)
+    text_index = TextIndex(args.text_file, index_file, max_cache_size=args.cache_size)
 
     total_chars = 0
     for _ in range(args.nr_reads):
