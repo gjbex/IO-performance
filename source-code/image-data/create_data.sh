@@ -13,6 +13,13 @@
 # The scripts takes the following command line arguments:
 #  - the name of the directory to write the files in,
 #  - the number of text files to create.
+#
+# If the script is called with -h, it will display the usage and exit.
+
+if [ "$1" == "-h" ]; then
+    echo "Usage: $0 <directory> <number of image files>"
+    exit 0
+fi
 
 # Check the number of arguments
 if [ "$#" -ne 2 ]; then
