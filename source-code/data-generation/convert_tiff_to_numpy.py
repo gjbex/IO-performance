@@ -10,15 +10,12 @@ import numpy as np
 import pathlib
 import skimage.io as io
 
-def convert_tiff_to_numpy(tiff_file):
-    # Read the TIFF file
-    return io.imread(tiff_file)
 
 def main():
     parser = argparse.ArgumentParser(description='Convert a TIFF file to a numpy array')
     parser.add_argument('tiff_file', type=str, help='Name of the TIFF file')
     args = parser.parse_args()
-    img = convert_tiff_to_numpy(args.tiff_file)
+    img = io.imread(args.tiff_file)
     npy_file = pathlib.Path(args.tiff_file).with_suffix('.npy')
     np.save(npy_file, img)
 
