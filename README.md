@@ -5,6 +5,8 @@ This repository contains materials for a training session on I/O performance.
 
 ## What is it?
 
+1. `slides-source`: directory containing the source code for the slides.
+1. `docs`: directory containing the rendered slides.
 1. `source-code`: directory containing source code for the training.
 1. `environment.yml`: conda environment file for the training.
 1. `LICENSE`: information about the license for this repository.

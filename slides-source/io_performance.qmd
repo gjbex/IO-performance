@@ -1,0 +1,165 @@
+---
+title: "I/O performance"
+author: "Geert Jan Bex"
+institution: "Vlaams Supercomputer Centrum"
+date: today
+format:
+  revealjs:
+    transiton: slide
+    slide-number: true
+code-annotations: select
+---
+
+## Overview
+
+- Motivation
+- Types of data & solutions
+  - Tabular data
+  - Text data
+  - Multidimensional arrays
+  - Images
+- Applications & environments
+- Wrap up
+
+
+# Motivation
+
+
+## Why worry?
+
+- Input/Output may take time
+- Large dataset, e.g., machine learning, data science
+- File systems have characteristics
+
+. . .
+
+HPC file systems tuned for
+
+- reading large files/large chunks
+- writing large files/large chunks
+
+
+## Many small read/writes
+
+Metadata updates
+
+- access time
+- modification time
+- file size
+
+::: {.callout-warning .fragment}
+Major performance degradation for... [entire system/all users!]{.fragment}
+:::
+
+::: {.callout-tip .fragment}
+Use file systems well!
+:::
+
+
+# Types of data & solutions
+
+Many data types
+
+::: {.incremental}
+- Tabular data: `.csv`, ...
+- Text data: `.txt`, `.json`, ...
+- Image data: `.jpeg`, `.tiff`, ...
+- Video data: `.mp4`, ...
+:::
+
+. . .
+
+Many small files [== many metadata operations]{.fragment}
+
+
+## Solutions
+
+::: {.incremental}
+- Use binary file formats
+- Bundle many small files into large one
+- Read/Write multiple items at once
+- Use caching
+:::
+
+
+## Column data
+
+Reading CSV is... [very slow]{.fragment}
+
+. . .
+
+Alternatives:
+::: {.incremental}
+- Parquet files
+- Arrow files
+:::
+
+. . .
+
+Can be read by pandas/polars/R
+
+
+## Parquet versus Arrow
+
+Parquet
+
+- I/O & space efficient
+- More CPU intensive for I/O (de)compression
+- Not optimal for random access
+
+. . .
+
+Arrow
+
+- I/O efficient
+- In-memory format
+- Random access okay, sequential operations very efficient
+
+
+## Many text files
+
+::: {.incremental}
+- Create binary file & index
+- Use Arrow
+- Use TAR, ZIP
+:::
+
+::: {.callout-tip .fragment}
+Read/write multiple "files" per operation
+:::
+
+
+## Multidimensional arrays
+
+::: {.incremental}
+- Use HDF5
+  - Programming language agnostic
+  - Cross-platform
+  - Self-documenting
+- Use Pytorch/TensorFlow tensors in Arrow file
+- Use binary files
+:::
+
+::: {.callout-warning .fragment}
+Don't use ASCII files!
+:::
+
+
+# Wrap up
+
+## Conclusions
+
+
+
+## How to proceed?
+
+If necessary, take trainings
+
+- HPC intro
+- Linux intro
+- Python for HPC
+- Parallel programming with MPI
+
+. . .
+
+Contact support
