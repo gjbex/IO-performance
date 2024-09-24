@@ -16,7 +16,8 @@ memory.
    text files, each containing a number of lines of text.  It also creates
    the necessary files for the benchmarks.
 1. `create_data.slurm`: Slurm script that runs the `create_data.sh` script.
-
+1. `datasets.ipynb`: Jupyter notebook that demonstrates how to use the
+   `datasets` package from Huggingface to read text files.
 
 ### Baseline
 
