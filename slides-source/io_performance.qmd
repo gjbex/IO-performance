@@ -82,7 +82,7 @@ Many small files [== many metadata operations]{.fragment}
 :::
 
 
-## Column data
+## Tabular data
 
 Reading CSV is... [very slow]{.fragment}
 
@@ -133,9 +133,6 @@ Read/write multiple "files" per operation
 
 ::: {.incremental}
 - Use HDF5
-  - Programming language agnostic
-  - Cross-platform
-  - Self-documenting
 - Use Pytorch/TensorFlow tensors in Arrow file
 - Use binary files
 :::
@@ -144,6 +141,57 @@ Read/write multiple "files" per operation
 Don't use ASCII files!
 :::
 
+
+## HDF5
+
+Advantages
+
+  - Programming language agnostic
+  - Cross-platform
+  - Self-documenting
+  - Multiple datasets
+  - Parallel I/O
+
+. . .
+
+Mostly for numerical data
+
+
+## Image data
+
+Many formats: JPEG, GIF, PNG, TIFF
+
+. . .
+
+Can have
+
+- 1 channel: grayscale $\mapsto$ 2D array
+- 3 channels: RGB or BGR $\mapsto$ 3D array
+- 4 channels: RGB or BGR + alpha $\mapsto$ 3D array
+
+. . .
+
+Store as
+
+- HDF5 file: dataset 3D array of `uint8`
+- Arrow file: Pytorch or TensorFlow tensors
+
+
+## Arrow files
+
+How? [Use [Hugging Face 🤗 datasets library](https://huggingface.co/docs/datasets/en/index)]{.fragment} 
+
+::: {.incremental}
+- Python only
+- Data + metadata
+- Easily split datasets for training & test
+- Directory with Arrow file and JSON metadata
+- Easy to use with Pytorch/TensorFlow
+:::
+
+
+
+# Applications & environments
 
 # Wrap up
 
@@ -155,8 +203,8 @@ Don't use ASCII files!
 
 If necessary, take trainings
 
-- HPC intro
 - Linux intro
+- HPC intro
 - Python for HPC
 - Parallel programming with MPI
 

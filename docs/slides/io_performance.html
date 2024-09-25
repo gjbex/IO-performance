@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.5.55">
 
   <meta name="author" content="Geert Jan Bex">
-  <meta name="dcterms.date" content="2024-09-24">
+  <meta name="dcterms.date" content="2024-09-25">
   <title>I/O performance</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -337,7 +337,7 @@ Geert Jan Bex
 </div>
 </div>
 
-  <p class="date">2024-09-24</p>
+  <p class="date">2024-09-25</p>
 </section>
 <section id="overview" class="slide level2">
 <h2>Overview</h2>
@@ -440,8 +440,8 @@ Geert Jan Bex
 </ul>
 </div>
 </section>
-<section id="column-data" class="slide level2">
-<h2>Column data</h2>
+<section id="tabular-data" class="slide level2">
+<h2>Tabular data</h2>
 <p>Reading CSV is… <span class="fragment">very slow</span></p>
 <div class="fragment">
 <p>Alternatives: ::: {.incremental} - Parquet files - Arrow files :::</p>
@@ -496,12 +496,7 @@ Geert Jan Bex
 <h2>Multidimensional arrays</h2>
 <div>
 <ul>
-<li class="fragment">Use HDF5
-<ul>
-<li class="fragment">Programming language agnostic</li>
-<li class="fragment">Cross-platform</li>
-<li class="fragment">Self-documenting</li>
-</ul></li>
+<li class="fragment">Use HDF5</li>
 <li class="fragment">Use Pytorch/TensorFlow tensors in Arrow file</li>
 <li class="fragment">Use binary files</li>
 </ul>
@@ -521,7 +516,58 @@ Geert Jan Bex
 </div>
 </div>
 </div>
+</section>
+<section id="hdf5" class="slide level2">
+<h2>HDF5</h2>
+<p>Advantages</p>
+<ul>
+<li>Programming language agnostic</li>
+<li>Cross-platform</li>
+<li>Self-documenting</li>
+<li>Multiple datasets</li>
+<li>Parallel I/O</li>
+</ul>
+<div class="fragment">
+<p>Mostly for numerical data</p>
+</div>
+</section>
+<section id="image-data" class="slide level2">
+<h2>Image data</h2>
+<p>Many formats: JPEG, GIF, PNG, TIFF</p>
+<div class="fragment">
+<p>Can have</p>
+<ul>
+<li>1 channel: grayscale <span class="math inline">\(\mapsto\)</span> 2D array</li>
+<li>3 channels: RGB or BGR <span class="math inline">\(\mapsto\)</span> 3D array</li>
+<li>4 channels: RGB or BGR + alpha <span class="math inline">\(\mapsto\)</span> 3D array</li>
+</ul>
+</div>
+<div class="fragment">
+<p>Store as</p>
+<ul>
+<li>HDF5 file: dataset 3D array of <code>uint8</code></li>
+<li>Arrow file: Pytorch or TensorFlow tensors</li>
+</ul>
+</div>
+</section>
+<section id="arrow-files" class="slide level2">
+<h2>Arrow files</h2>
+<p>How? <span class="fragment">Use <a href="https://huggingface.co/docs/datasets/en/index">Hugging Face 🤗 datasets library</a></span></p>
+<div>
+<ul>
+<li class="fragment">Python only</li>
+<li class="fragment">Data + metadata</li>
+<li class="fragment">Easily split datasets for training &amp; test</li>
+<li class="fragment">Directory with Arrow file and JSON metadata</li>
+<li class="fragment">Easy to use with Pytorch/TensorFlow</li>
+</ul>
+</div>
 </section></section>
+<section id="applications-environments" class="title-slide slide level1 center">
+<h1>Applications &amp; environments</h1>
+
+</section>
+
 <section>
 <section id="wrap-up" class="title-slide slide level1 center">
 <h1>Wrap up</h1>
@@ -534,8 +580,8 @@ Geert Jan Bex
 <h2>How to proceed?</h2>
 <p>If necessary, take trainings</p>
 <ul>
-<li>HPC intro</li>
 <li>Linux intro</li>
+<li>HPC intro</li>
 <li>Python for HPC</li>
 <li>Parallel programming with MPI</li>
 </ul>
