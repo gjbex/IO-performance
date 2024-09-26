@@ -1,0 +1,5 @@
+outs:
+- md5: 0f782a64781a2661593fa64404d8ddaa
+  size: 12840960
+  hash: md5
+  path: tmp_seq.tar
