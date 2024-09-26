@@ -1,4 +1,5 @@
 [core]
     remote = staging_data
+    autostage = true
 ['remote "staging_data"']
     url = ssh://vsc30140@login.hpc.kuleuven.be/staging/leuven/stg_00001/data-repository/IO-performance/
