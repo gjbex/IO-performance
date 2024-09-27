@@ -57,5 +57,9 @@ tar -cf "$1.tar" "$1"/seq*.txt
 (2>&1 echo "Creating labels file")
 python ../data-generation/create_labels.py "$1/seq*.txt" --types int:2 str:10 --output "$1_labels.csv"
 
+# Create dataset file
+(2>&1 echo "Creating dataset file")
+./concat_txt_to_dataset.py "$1/seq*.txt" "$1_labels.csv" "$1_dataset"
+
 # Done
 (2>&1 echo "Done")
