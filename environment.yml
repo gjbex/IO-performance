@@ -14,4 +14,6 @@ dependencies:
   - certifi
   - matplotlib
   - datasets
+  - ipywidgets
+  - pytorch
 prefix: /home/gjb/mambaforge/envs/io_performance
