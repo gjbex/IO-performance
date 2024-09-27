@@ -1,0 +1,6 @@
+outs:
+- md5: 7f161a69413b1989cf66085b5747941e.dir
+  size: 71918384
+  nfiles: 3
+  hash: md5
+  path: tmp_large_seq_dataset
