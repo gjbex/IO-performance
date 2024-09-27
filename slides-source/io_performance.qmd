@@ -193,6 +193,29 @@ How? [Use [Hugging Face 🤗 datasets library](https://huggingface.co/docs/datas
 
 # Applications & environments
 
+## The problem with Python/R
+
+Running script loads lots of modules/packages [== lots of metadata operations]{.fragment}
+
+. . .
+
+Solution: use containers
+
+. . .
+
+[Apptainer](https://apptainer.org/) is supported on VSC-systems
+
+
+## Best practices & caveats
+
+::: {.incremental}
+- Build containers on target system
+- Compile critical software components
+- Be weary of `.local` et al.
+- Use [hpccm](https://github.com/NVIDIA/hpc-container-maker)
+:::
+
+
 # Wrap up
 
 ## Conclusions

@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.5.55">
 
   <meta name="author" content="Geert Jan Bex">
-  <meta name="dcterms.date" content="2024-09-25">
+  <meta name="dcterms.date" content="2024-09-26">
   <title>I/O performance</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -337,7 +337,7 @@ Geert Jan Bex
 </div>
 </div>
 
-  <p class="date">2024-09-25</p>
+  <p class="date">2024-09-26</p>
 </section>
 <section id="overview" class="slide level2">
 <h2>Overview</h2>
@@ -563,11 +563,32 @@ Geert Jan Bex
 </ul>
 </div>
 </section></section>
+<section>
 <section id="applications-environments" class="title-slide slide level1 center">
 <h1>Applications &amp; environments</h1>
 
 </section>
-
+<section id="the-problem-with-pythonr" class="slide level2">
+<h2>The problem with Python/R</h2>
+<p>Running script loads lots of modules/packages <span class="fragment">== lots of metadata operations</span></p>
+<div class="fragment">
+<p>Solution: use containers</p>
+</div>
+<div class="fragment">
+<p><a href="https://apptainer.org/">Apptainer</a> is supported on VSC-systems</p>
+</div>
+</section>
+<section id="best-practices-caveats" class="slide level2">
+<h2>Best practices &amp; caveats</h2>
+<div>
+<ul>
+<li class="fragment">Build containers on target system</li>
+<li class="fragment">Compile critical software components</li>
+<li class="fragment">Be weary of <code>.local</code> et al.</li>
+<li class="fragment">Use <a href="https://github.com/NVIDIA/hpc-container-maker">hpccm</a></li>
+</ul>
+</div>
+</section></section>
 <section>
 <section id="wrap-up" class="title-slide slide level1 center">
 <h1>Wrap up</h1>
