@@ -41,11 +41,13 @@ mkdir "$1"
 # Create the text files
 (2>&1 echo "Creating $2 text files with max word length $3")
 for i in $(seq 1 $2); do
+    output_file="$1"/seq$(printf "%06d" $i).txt
     python ../data-generation/create_text_data.py \
         --words=1 \
         --max-word-length=$3 \
         --char-set=ACGT \
-        --output-file "$1"/seq$(printf "%06d" $i).txt
+        --output-file "$output_file"
+    echo "$output_file" >> "$1_files.txt"
 done
 
 # Create the TextIndex text and index file
