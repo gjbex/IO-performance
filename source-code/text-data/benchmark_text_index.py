@@ -11,6 +11,19 @@ import argparse
 import random
 from text_index import TextIndex
 
+def run(text_file, nr_reads, index_file=None, cache_size=128):
+    if index_file is None:
+        index_file = text_file + '.idx'
+
+    text_index = TextIndex(text_file, index_file, max_cache_size=cache_size)
+
+    total_chars = 0
+    for _ in range(nr_reads):
+        idx = random.randrange(0, len(text_index))
+        text = text_index.read_text(idx)
+        total_chars += len(text)
+    text_index = TextIndex(text_file, index_file)
+    return total_chars
 
 def main():
     parser = argparse.ArgumentParser(description='Benchmark text index method')
@@ -20,17 +33,7 @@ def main():
     parser.add_argument('--cache-size', type=int, default=128, help='Size of the cache')
     args = parser.parse_args()
 
-    index_file = args.index_file
-    if not index_file:
-        index_file = args.text_file + '.idx'
-
-    text_index = TextIndex(args.text_file, index_file, max_cache_size=args.cache_size)
-
-    total_chars = 0
-    for _ in range(args.nr_reads):
-        idx = random.randrange(0, len(text_index))
-        text = text_index.read_text(idx)
-        total_chars += len(text)
+    total_chars = run(args.text_file, args.nr_reads, args.index_file, args.cache_size)
     print(f'Total characters read: {total_chars}')
 
 
