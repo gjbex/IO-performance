@@ -19,7 +19,7 @@ data=tmp_large_seq
 nr_reads=200000
 
 (>&2 echo "naive method")
-time ./benchmark_naive.py "$data/seq*.txt" --nr-reads $nr_reads
+time ./benchmark_naive.py "${data}_files.txt" --nr-reads $nr_reads
 
 (>&2 echo "text index method")
 time ./benchmark_text_index.py "$data.txt" --index-file "$data.txt.idx" --nr-reads $nr_reads

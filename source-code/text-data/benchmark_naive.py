@@ -2,7 +2,7 @@
 #
 # Script to run a benchmark of the naive text reading method.
 # The script takes the following command line arguments:
-#   - the path glob pattern to the text files to read from,
+#   - the file containing the list of files to read
 #   - the number of files to read
 
 import argparse
@@ -12,11 +12,12 @@ import random
 
 def main():
     parser = argparse.ArgumentParser(description='Benchmark text index method')
-    parser.add_argument('file_pattern', help='File glob pattern for the text files to read')
+    parser.add_argument('file', help='File containing the list of files to read')
     parser.add_argument('--nr-reads', type=int, help='Number of files to read')
     args = parser.parse_args()
 
-    files = list(pathlib.Path().glob(args.file_pattern))
+    with open(args.file, 'r') as file:
+        files = [name.strip() for name in file.readlines()]
     total_chars = 0
     for _ in range(args.nr_reads):
         idx = random.randrange(0, len(files))
