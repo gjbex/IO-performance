@@ -10,28 +10,34 @@
 #SBATCH --mail-type=END,FAIL
 
 # test whehter the conda initialization file exists, if so, source it
-[ -e $VSC_HOME/.conda_init] && source $VSC_HOME/.conda_init.sh
+[ -e $VSC_HOME/.conda_init.sh ] && source $VSC_HOME/.conda_init.sh
 
 # activate the conda environment
 mamba activate io_performance
 
 # set data set
-data=tmp_large_seq
+if [ ! -n "$data" ]
+then
+    data=data/tmp_large_seq
+fi
 
 # set number of reads
-nr_reads=200000
+if [ ! -n "$nr_reads" ]
+then
+    nr_reads=200000
+fi
 
-(>&2 echo "naive method")
+(>&2 printf "\nnaive method")
 time ./benchmark.py "${data}_files.txt" --nr-reads $nr_reads --method naive
 
-(>&2 echo "text index method")
+(>&2 printf "\ntext_index method")
 time ./benchmark.py "$data.txt" --nr-reads $nr_reads --method text_index
 
-(>&2 echo "tar method")
+(>&2 printf "\ntar method")
 time ./benchmark.py "$data.tar" --nr-reads $nr_reads --method tar
 
-(>&2 echo "zip method")
+(>&2 printf "\nzip method")
 time ./benchmark.py "$data.zip" --nr-reads $nr_reads --method zip
 
-(>&2 echo "datasets method")
+(>&2 printf "\ndatasets method")
 time ./benchmark.py "${data}_dataset" --nr-reads $nr_reads --method dataset
