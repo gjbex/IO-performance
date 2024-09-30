@@ -12,12 +12,14 @@ memory.
 
 ## What is it?
 
-1. `create_data.sh`: Bash script that creates a directory with a number of
-   text files, each containing a number of lines of text.  It also creates
-   the necessary files for the benchmarks.
+### Data generation
+
+1. `create_data.sh`: Bash script that creates a directory with a number of text
+   files, each containing a number of lines of text.  It also creates the
+   necessary files for the benchmarks.
 1. `create_data.slurm`: Slurm script that runs the `create_data.sh` script.
 1. `datasets.ipynb`: Jupyter notebook that demonstrates how to use the
-   `datasets` package from Huggingface to read text files.
+   `datasets` package from Hugging Face to read text files.
 
 ### Baseline
 
@@ -26,15 +28,15 @@ memory.
 
 ### Indexed file
 
-1. `index_text_files.py`: Python script that concatenates all text files
-   that fit a given pattern into a single file, and creates an index file
-   to facilitate random access to the content of the individual files.
-1. `text_index.py`: Python module that implements a `TextIndex` class
-   that can be used to access the content of the individual files.
-1. `benchmark_text_index.py`: Python script that benchmarks reading
-   a concatenated text files using the `TextIndex` class.
-1. `indexed_files.ipynb`: Jupyter notebook that demonstrates the use
-   of the `TextIndex` class and benchmarks it against the naive approach.
+1. `index_text_files.py`: Python script that concatenates all text files that
+   fit a given pattern into a single file, and creates an index file to
+   facilitate random access to the content of the individual files.
+1. `text_index.py`: Python module that implements a `TextIndex` class that can
+   be used to access the content of the individual files.
+1. `benchmark_text_index.py`: Python script that benchmarks reading a
+   concatenated text files using the `TextIndex` class.
+1. `indexed_files.ipynb`: Jupyter notebook that demonstrates the use of the
+   `TextIndex` class and benchmarks it against the naive approach.
 
 ### Zip file
 
@@ -46,9 +48,15 @@ memory.
 1. `benchmark_tar.py`: Python script that benchmarks reading individual text
    files from a tar file.
 
-### arrow format
+### Hugging Face dataset format
 
-1. `concat_txt_to_dataset.py`: script to concatenate text files into a Huggingface
-   dataset, including labels.
-1. `benchmark_arrow.py`: Python script that benchmarks reading individual text
-   files from an arrow/datasets file.
+1. `concat_txt_to_dataset.py`: script to concatenate text files into a Hugging
+   Face dataset, including labels.
+1. `benchmark_dataset.py`: Python script that benchmarks reading individual
+   text files from an datasets file.
+
+### Running the benchmarks
+
+1. `benchmark.py`: Python script that offers a uniform interface to each of the
+   benchmarks.
+1. `benchmarks.slurm`: Slurm script that runs the benchmarks.
