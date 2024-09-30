@@ -1,0 +1,5 @@
+outs:
+- md5: 5eddc8bbd2d50f905645c1f28a5edf42
+  size: 3300000
+  hash: md5
+  path: tmp_large_seq_files.txt
