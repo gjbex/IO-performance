@@ -1,0 +1,6 @@
+outs:
+- md5: 0b0c701caf9bc3ee963dce889de6232e.dir
+  size: 254613
+  nfiles: 500
+  hash: md5
+  path: tmp_seq

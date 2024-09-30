@@ -1,0 +1,5 @@
+outs:
+- md5: 6c7f869d9d7c7bcc2fec12aaf4df1ea5
+  size: 174424
+  hash: md5
+  path: tmp_seq.zip
