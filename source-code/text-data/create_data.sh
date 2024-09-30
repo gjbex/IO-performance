@@ -15,6 +15,13 @@
 #  - the name of the directory to write the files in,
 #  - the number of text files to create.
 #  - the maximum length of the words in the text files.
+#
+# If the `-h` or `--help` option is given, the script prints a help message and exits.
+
+if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+    echo "Usage: $0 <directory> <number of text files> <max word length>"
+    exit 0
+fi
 
 # Check the number of arguments
 if [ "$#" -ne 3 ]; then
