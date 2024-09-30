@@ -22,7 +22,10 @@ def main():
     parser = argparse.ArgumentParser(description='Concatenate numpy arrays to HDF5')
     parser.add_argument('file_pattern', type=str, help='File name pattern for numpy files')
     parser.add_argument('hdf5_file', type=str, help='Name of the HDF5 file')
-    parser.add_argument('--dataset', type=str, default='data', help='Name of the dataset in the HDF5 file')
+    parser.add_argument('--dataset', type=str, default='data',
+                        help='Name of the dataset in the HDF5 file')
+    parser.add_argument('--mode', choices=['row_major', 'col_major', 'stacked'],
+                        default='staced', help='How to concatenate the arrays')
     args = parser.parse_args()
 
     # Get the list of numpy files
@@ -34,18 +37,24 @@ def main():
         shape = first_array.shape
         dtype = first_array.dtype
 
+    if args.mode == 'row_major':
+        shape = (len(file_names),) + shape
+        idx = lambda i: (i, slice(None), slice(None), slice(None))
+    elif args.mode == 'col_major':
+        shape = shape + (len(file_names),)
+        idx = lambda i: (slice(None), slice(None), slice(None), i)
+    else:
+        shape = shape[:2] + (4*len(file_names),)
+        idx = lambda i: (slice(None), slice(None), slice(4*i, 4*(i+1)))
+
     # Create the HDF5 file and dataset
     with h5py.File(args.hdf5_file, 'w') as h5_file:
-        dataset = h5_file.create_dataset(args.dataset, shape=(0,) + shape, maxshape=(None,) + shape, dtype=dtype)
+        dataset = h5_file.create_dataset(args.dataset, shape=shape, dtype=dtype)
 
-        # Append the first array
-        dataset.resize((0,) + shape)
-
-        # Append the remaining arrays
-        for file_name in file_names:
+        # Append the arrays
+        for file_nr, file_name in enumerate(file_names):
             with open(file_name, 'rb') as np_file:
-                dataset.resize((dataset.shape[0] + 1,) + shape)
-                dataset[-1] = np.load(np_file)
+                dataset[idx(file_nr)] = np.load(np_file)
 
 
 if __name__ == '__main__':
