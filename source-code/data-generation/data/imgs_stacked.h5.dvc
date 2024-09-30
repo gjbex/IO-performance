@@ -1,0 +1,5 @@
+outs:
+- md5: 2a03bdcd74b26ca8e6742ca0b3625566
+  size: 29861888
+  hash: md5
+  path: imgs_stacked.h5
