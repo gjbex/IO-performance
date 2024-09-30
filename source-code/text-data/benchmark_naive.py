@@ -9,6 +9,16 @@ import argparse
 import pathlib
 import random
 
+def run(file_list, nr_reads):
+    with open(file_list, 'r') as file:
+        files = [name.strip() for name in file.readlines()]
+    total_chars = 0
+    for _ in range(nr_reads):
+        idx = random.randrange(0, len(files))
+        with open(files[idx], 'r') as file:
+            text = file.read()
+            total_chars += len(text)
+    return total_chars
 
 def main():
     parser = argparse.ArgumentParser(description='Benchmark text index method')
@@ -16,14 +26,7 @@ def main():
     parser.add_argument('--nr-reads', type=int, help='Number of files to read')
     args = parser.parse_args()
 
-    with open(args.file, 'r') as file:
-        files = [name.strip() for name in file.readlines()]
-    total_chars = 0
-    for _ in range(args.nr_reads):
-        idx = random.randrange(0, len(files))
-        with open(files[idx], 'r') as file:
-            text = file.read()
-            total_chars += len(text)
+    total_chars = run(args.file, args.nr_reads)
     print(f'Total characters read: {total_chars}')
 
 
