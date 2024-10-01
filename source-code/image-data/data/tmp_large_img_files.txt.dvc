@@ -1,0 +1,5 @@
+outs:
+- md5: 29af0a90a3352ad82488d4cac97f3dad
+  size: 70000
+  hash: md5
+  path: tmp_large_img_files.txt
