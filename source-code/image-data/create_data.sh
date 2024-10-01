@@ -72,4 +72,4 @@ tar cf "${1}_tars/tmp_imgs.tar" ${1}/*.tiff
 
 # Create dataset with pytorch tensors
 (>&2 printf "Creating Pytorch tensor dataset")
-./convert_tar_to_pytorch_tensor_dataset.py "${1}_tars"
+../data-generation/convert_tiff_tars_to_pytorch_tensor_dataset.py "${1}_tars"

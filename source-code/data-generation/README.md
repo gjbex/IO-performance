@@ -32,6 +32,9 @@ conversion.
    array, saved as a `.npy` file.
 1. `concat_numpy_to_hdf5.py`: Python script to store NumPy arrays in an HDF5
    file.
+1. `convert_tiff_tars_to_pytorch_tensor_dataset.py`: Python script to convert a
+   directory containing TAR files with TIFF files to a Hugging Face dataset with
+   Pytorch tensors.
 
 ### Labels
 
@@ -89,6 +92,15 @@ To convert a TIFF image to a NumPy array, run
 
 ```bash 
 $ python convert_tiff_to_numpy.py data.tif
+```
+
+### `convert_tiff_tars_to_pytorch_tensor_dataset.py`
+
+To convert a directory of TAR files that contain TIFF data files to
+a Hugging Face dataset consisting of Pytorch tensors, run
+
+```bash
+$ python convert_tiff_tars_to_pytorch_tensor_dataset.py tar_dir
 ```
 
 ### `concat_numpy_to_hdf5.py`
