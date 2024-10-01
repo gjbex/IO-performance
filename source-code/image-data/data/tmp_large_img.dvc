@@ -1,0 +1,6 @@
+outs:
+- md5: 7fd4af05b57ed6e24f33d024cf06d92b.dir
+  size: 11944980000
+  nfiles: 4000
+  hash: md5
+  path: tmp_large_img

@@ -1,0 +1,6 @@
+outs:
+- md5: e7c71c11dfe8f5e0d433cc84acd5f77e.dir
+  size: 5974026240
+  nfiles: 1
+  hash: md5
+  path: tmp_large_img_tars
