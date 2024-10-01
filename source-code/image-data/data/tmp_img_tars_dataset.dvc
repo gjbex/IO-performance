@@ -1,0 +1,6 @@
+outs:
+- md5: eb3e35838ccdeff77ae06d705ec49de7.dir
+  size: 586024
+  nfiles: 4
+  hash: md5
+  path: tmp_img_tars_dataset

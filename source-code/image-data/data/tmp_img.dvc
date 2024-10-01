@@ -1,0 +1,6 @@
+outs:
+- md5: be1a6118a251161e92c7872c1b7ccdc5.dir
+  size: 60303420
+  nfiles: 40
+  hash: md5
+  path: tmp_img

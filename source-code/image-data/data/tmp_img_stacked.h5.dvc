@@ -1,0 +1,5 @@
+outs:
+- md5: 9153858e7705c69e1c6db944b8102057
+  size: 59721728
+  hash: md5
+  path: tmp_img_stacked.h5
