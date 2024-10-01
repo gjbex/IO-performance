@@ -34,15 +34,16 @@ if [ -d "$1" ]; then
 fi
 
 # Create the directory
-mkdir "$1"
+mkdir -p "$1"
 
 workdir=$(pwd)
 pushd ../data-generation
 # Create the text files
-for i in $(seq 1 $2); do
+for i in $(seq -w 000001 $2)
+do
     bash create_image_data.sh \
         $i \
-        "$workdir/$1"/img$(printf "%06d" $i).tiff
+        "$workdir/$1"/img_$i.tiff
 done
 popd
 
@@ -51,5 +52,16 @@ for file in $(ls $1/*.tiff); do
     python ../data-generation/convert_tiff_to_numpy.py $file
 done
 
-# Create the HDF5 file
-python ../data-generation/concat_numpy_to_hdf5.py "$1/*.npy" "$1.h5"
+# Create the HDF5 files
+for mode in row_major col_major stacked; do
+    python ../data-generation/concat_numpy_to_hdf5.py "$1/*.npy" "$1_$mode.h5" --mode $mode
+done
+
+# Create the TAR directory
+mkdir ${1}_tars
+
+# Create the TAR file
+tar cf "${1}_tars/imgs.tar" ${1}/*.tiff
+
+# Create dataset with pytorch tensors
+./convert_tar_to_pytorch_tensor_dataset.py "${1}_tars"
