@@ -13,13 +13,18 @@ import importlib.util
 def main():
     parser = argparse.ArgumentParser(description='Benchmark text index method')
     parser.add_argument('path', help='Path to the data file or directory')
-    parser.add_argument('--nr-reads', type=int, help='Number of files to read')
+    read_mode = parser.add_mutually_exclusive_group(required=True)
+    read_mode.add_argument('--nr-reads', type=int, help='Number of files to read')
+    read_mode.add_argument('--single-read', action='store_true', help='Read the entire dataset once')
     parser.add_argument('--method', help='Method to use',
                         choices=['naive', 'text_index', 'tar', 'zip', 'dataset'])
     args = parser.parse_args()
 
     benchmark_module = importlib.import_module(f'benchmark_{args.method}')
-    total_bytes_read = benchmark_module.run(args.path, args.nr_reads)
+    if args.single_read:
+        total_bytes_read = benchmark_module.run_single_read(args.path)
+    else:
+        total_bytes_read = benchmark_module.run(args.path, args.nr_reads)
     print(f'Total bytes read: {total_bytes_read}')
 
 

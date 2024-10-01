@@ -25,10 +25,24 @@ def run(text_file, nr_reads, index_file=None, cache_size=128):
     text_index = TextIndex(text_file, index_file)
     return total_chars
 
+def run_single_read(text_file, index_file=None, cache_size=0):
+    if index_file is None:
+        index_file = text_file + '.idx'
+
+    text_index = TextIndex(text_file, index_file, max_cache_size=cache_size)
+
+    total_chars = 0
+    for i in range(len(text_index)):
+        text = text_index.read_text(i)
+        total_chars += len(text)
+    return total_chars
+
 def main():
     parser = argparse.ArgumentParser(description='Benchmark text index method')
     parser.add_argument('text_file', help='Path to the text file to read from')
-    parser.add_argument('--index-file', nargs='?', help='Path to the index file')
+    read_mode = parser.add_mutually_exclusive_group(required=True)
+    read_mode.add_argument('--index-file', nargs='?', help='Path to the index file')
+    read_mode.add_argument('--single-read', action='store_true', help='Read the entire dataset once')
     parser.add_argument('--nr-reads', type=int, default=10_000, help='Number of files to read')
     parser.add_argument('--cache-size', type=int, default=128, help='Size of the cache')
     args = parser.parse_args()
