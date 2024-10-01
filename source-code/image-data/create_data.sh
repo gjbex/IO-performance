@@ -68,7 +68,7 @@ mkdir ${1}_tars
 
 # Create the TAR file
 (>&2 printf "Creating TAR")
-tar cf "${1}_tars/imgs.tar" ${1}/*.tiff
+tar cf "${1}_tars/tmp_imgs.tar" ${1}/*.tiff
 
 # Create dataset with pytorch tensors
 (>&2 printf "Creating Pytorch tensor dataset")
