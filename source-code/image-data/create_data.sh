@@ -33,6 +33,9 @@ if [ -d "$1" ]; then
     exit 1
 fi
 
+# Make script fail on first error
+set -e
+
 # Create the directory
 mkdir -p "$1"
 
@@ -55,8 +58,8 @@ for file in $(ls $1/*.tiff); do
 done
 
 # Create the HDF5 files
-(>&2 printf "Creating HDF5 files")
 for mode in row_major col_major stacked; do
+    (>&2 printf "Creating HDF5 $mode file")
     python ../data-generation/concat_numpy_to_hdf5.py "$1/*.npy" "$1_$mode.h5" --mode $mode
 done
 
