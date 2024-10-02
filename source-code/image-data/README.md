@@ -18,3 +18,4 @@ a single dataset of an HDF5 file.
    HDF5 file.
 1. `datasets.ipynb`: Jupyter notebook illustrating how to load images from a
    Huggingface dataset.
+1. `benchmarks.slurm`: Slurm job script to run benchmarks.
