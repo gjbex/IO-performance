@@ -50,7 +50,7 @@ def run_single(h5_file_name, mode):
     return avg_brightness/nr_images
 
 def main():
-    parser = argparse.ArgumentParser(description='Benchmark image index method')
+    parser = argparse.ArgumentParser(description='Benchmark HDF5 method')
     parser.add_argument('h5_file', help='HRDF5 file to read')
     parser.add_argument('--dataset', default='data', help='Dataset to read')
     parser.add_argument('--mode', choices=['row_major', 'col_major', 'stacked'],

@@ -34,7 +34,7 @@ def run_single(file_list_file_name):
     return avg_brightness/len(files)
 
 def main():
-    parser = argparse.ArgumentParser(description='Benchmark image index method')
+    parser = argparse.ArgumentParser(description='Benchmark naive method')
     parser.add_argument('file_list', help='List of data files to read')
     read_mode = parser.add_mutually_exclusive_group(required=True)
     read_mode.add_argument('--nr-reads', type=int, help='Number of files to read')
