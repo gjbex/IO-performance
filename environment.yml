@@ -1,0 +1,21 @@
+name: io_performance
+channels:
+  - conda-forge
+dependencies:
+  - polars
+  - pyarrow
+  - pandas
+  - numpy
+  - h5py
+  - jupyterlab
+  - ca-certificates
+  - openssl
+  - scikit-image
+  - certifi
+  - matplotlib
+  - datasets
+  - ipywidgets
+  - pytorch
+  - imagemagick
+  - bioconda::snakemake
+prefix: /home/gjb/mambaforge/envs/io_performance
