@@ -31,6 +31,7 @@ def compute_nr_images(h5_file, mode):
 def run(h5_file_name, nr_reads, mode):
     avg_brightness = 0.0
     with h5py.File(h5_file_name, 'r') as h5_file:
+        nr_images = compute_nr_images(h5_file, mode)
         idx = access_modes(mode)
         for _ in range(nr_reads):
             i = random.randrange(0, nr_images)
@@ -46,7 +47,7 @@ def run_single(h5_file_name, mode):
         for i in range(nr_images):
             img = h5_file['data'][idx(i)]
             avg_brightness += brightness(img)
-    return avg_brightness/nr_reads
+    return avg_brightness/nr_images
 
 def main():
     parser = argparse.ArgumentParser(description='Benchmark image index method')
