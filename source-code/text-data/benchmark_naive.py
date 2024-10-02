@@ -31,7 +31,7 @@ def run_single_read(file_list):
     return total_chars
 
 def main():
-    parser = argparse.ArgumentParser(description='Benchmark text index method')
+    parser = argparse.ArgumentParser(description='Benchmark naive method')
     parser.add_argument('file', help='File containing the list of files to read')
     read_mode = parser.add_mutually_exclusive_group(required=True)
     read_mode.add_argument('--nr-reads', type=int, help='Number of files to read')

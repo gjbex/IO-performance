@@ -32,7 +32,7 @@ def run_single_read(zip_file):
     return total_chars
 
 def main():
-    parser = argparse.ArgumentParser(description='Benchmark text index method')
+    parser = argparse.ArgumentParser(description='Benchmark ZIP method')
     parser.add_argument('zip_file', help='Path to the zip file to read from')
     read_mode = parser.add_mutually_exclusive_group(required=True)
     read_mode.add_argument('--nr-reads', type=int, help='Number of files to read')

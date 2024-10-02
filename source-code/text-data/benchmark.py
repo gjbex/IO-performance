@@ -11,7 +11,7 @@ import argparse
 import importlib.util
 
 def main():
-    parser = argparse.ArgumentParser(description='Benchmark text index method')
+    parser = argparse.ArgumentParser(description='Benchmark speicified method')
     parser.add_argument('path', help='Path to the data file or directory')
     read_mode = parser.add_mutually_exclusive_group(required=True)
     read_mode.add_argument('--nr-reads', type=int, help='Number of files to read')
