@@ -27,17 +27,17 @@ then
     nr_reads=10000
 fi
 
-(>&2 printf "\nnaive method")
+(>&2 printf "\nnaive method\n")
 time ./benchmark_naive.py "${data}_files.txt" --nr-reads $nr_reads
 
-(>&2 printf "\nHDF5 row-major method")
+(>&2 printf "\nHDF5 row-major method\n")
 time ./benchmark_h5.py "${data}_row_major.h5" --nr-reads $nr_reads --mode row_major
 
-(>&2 printf "\nHDF5 column-major method")
+(>&2 printf "\nHDF5 column-major method\n")
 time ./benchmark_h5.py "${data}_col_major.h5" --nr-reads $nr_reads --mode col_major
 
-(>&2 printf "\nHDF5 stacked method")
+(>&2 printf "\nHDF5 stacked method\n")
 time ./benchmark_h5.py "${data}_stacked.h5" --nr-reads $nr_reads --mode stacked
 
-(>&2 printf "\ndatasets method")
-time ./benchmark_dataset.py "${data}_dataset" --nr-reads $nr_reads
+(>&2 printf "\ndatasets method\n")
+time ./benchmark_dataset.py "${data}_tars_dataset" --nr-reads $nr_reads
