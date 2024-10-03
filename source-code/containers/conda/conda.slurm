@@ -4,7 +4,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
-#SBATCH --mem=8G
+#SBATCH --mem=30G
 #SBATCH --time 02:00:00
 #SBATCH --mail-type=END,FAIL
 
@@ -15,4 +15,4 @@ export APPTAINER_CACHEDIR=$VSC_SCRATCH/apptainer_cache
 mkdir -p $APPTAINER_CACHEDIR
 
 # build the image using fake-root
-apptainer build --fake-root conda.sif conda.recipe
+apptainer build --fakeroot conda.sif conda.recipe

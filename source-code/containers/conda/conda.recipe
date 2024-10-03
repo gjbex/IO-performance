@@ -6,7 +6,7 @@
 
 # Build stage
 BootStrap: docker
-From: continuumio/miniconda3:4.10.3-alpine
+From: continuumio/miniconda3
 Stage: build
 %post
     . /.singularity.d/env/10-docker*.sh
@@ -29,7 +29,7 @@ Stage: build
 
 # Runtime stage
 BootStrap: docker
-From: continuumio/miniconda3:4.10.3-alpine
+From: debian:bullseye-slim
 Stage: runtime
 
 %post
