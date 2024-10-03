@@ -1,5 +1,10 @@
-# NOTE: this definition file depends on features only available in
-# Singularity 3.2 and later.
+# Two stage build script for an image with a conda environment.
+# The first stage creates the conda environment and packs it into a tarball.
+# The second stage unpacks the tarball and sets the PATH to the conda environment.
+# Hence the conda environment needs not to be activated.
+#
+
+# Build stage
 BootStrap: docker
 From: continuumio/miniconda3:4.10.3-alpine
 Stage: build
@@ -21,8 +26,10 @@ Stage: build
     cd /
     conda pack -n env -o env.tar.gz
 
+
+# Runtime stage
 BootStrap: docker
-From:  debian:bullseye-slim
+From: continuumio/miniconda3:4.10.3-alpine
 Stage: runtime
 
 %post
@@ -47,5 +54,6 @@ Stage: runtime
 
 %environment
     export PATH=/env/bin/:$PATH
+
 %post
     export PATH=/env/bin/:$PATH
