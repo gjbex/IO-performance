@@ -11,3 +11,6 @@ tmp_*.gz
 
 # data directory
 tmp_*/
+
+# Snakemake directories
+.snakemake/
