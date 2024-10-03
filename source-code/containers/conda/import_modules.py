@@ -27,7 +27,6 @@ from keras.datasets import imdb
 from keras.preprocessing import sequence
 
 import torch
-from torch.func import functional_call, grad, vjp, vmap
 
 
 if __name__ == '__main__':

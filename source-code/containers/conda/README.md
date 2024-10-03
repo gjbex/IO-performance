@@ -12,3 +12,6 @@ script with the traditional module approach on HPC systems.
 1. `environment.yml`: conda environment definition.
 1. `import_modules.py`: Python script that imports a number of modules.
 1. `conda.slurm`: SLURM script to build the container.
+1. `import_modules_container.slurm`: benchmark for container start and
+   Python module load.
+1. `import_modules_container_out.txt`: benchmark results.
