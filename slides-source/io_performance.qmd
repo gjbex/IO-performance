@@ -79,6 +79,7 @@ Many small files [== many metadata operations]{.fragment}
 - Bundle many small files into large one
 - Read/Write multiple items at once
 - Use caching
+- Use node-local scratch space
 :::
 
 
@@ -220,6 +221,8 @@ Solution: use containers
 
 ## Conclusions
 
+- Understaning I/O constraints is crucial
+- Adapting workflows is (relatively) easy
 
 
 ## How to proceed?
