@@ -50,8 +50,8 @@ def run_single(h5_file_name, mode):
     return avg_brightness/nr_images
 
 def run_contig(h5_file_name, mode):
-    nr_images = compute_nr_images(h5_file, mode)
     with h5py.File(h5_file_name, 'r') as h5_file:
+        nr_images = compute_nr_images(h5_file, mode)
         data = h5_file['data'][...]
     avg_brightness = 0.0
     idx = access_modes(mode)
