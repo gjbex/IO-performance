@@ -22,16 +22,16 @@ then
 fi
 
 (>&2 printf "\nnaive method\n")
-time ./benchmark_naive.py "${data}_files.txt" --config-read
+time ./benchmark_naive.py "${data}_files.txt" --contig-read
 
 (>&2 printf "\nHDF5 row-major method\n")
-time ./benchmark_h5.py "${data}_row_major.h5" --config-read --mode row_major
+time ./benchmark_h5.py "${data}_row_major.h5" --contig-read --mode row_major
 
 (>&2 printf "\nHDF5 column-major method\n")
-time ./benchmark_h5.py "${data}_col_major.h5" --config-read --mode col_major
+time ./benchmark_h5.py "${data}_col_major.h5" --contig-read --mode col_major
 
 (>&2 printf "\nHDF5 stacked method\n")
-time ./benchmark_h5.py "${data}_stacked.h5" --config-read --mode stacked
+time ./benchmark_h5.py "${data}_stacked.h5" --contig-read --mode stacked
 
 (>&2 printf "\ndatasets method\n")
-time ./benchmark_dataset.py "${data}_tars_dataset" --config-read
+time ./benchmark_dataset.py "${data}_tars_dataset" --contig-read
