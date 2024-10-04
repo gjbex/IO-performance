@@ -33,16 +33,28 @@ def run_single(file_list_file_name):
         avg_brightness += brightness(img)
     return avg_brightness/len(files)
 
+def run_contig(file_list_file_name):
+    with open(file_list_file_name, 'r') as list_file:
+        files = list_file.readlines()
+    data = [io.imread(file.strip()) for file in files]
+    avg_brightness = 0.0
+    for img in data:
+        avg_brightness += brightness(img)
+    return avg_brightness/len(data)
+
 def main():
     parser = argparse.ArgumentParser(description='Benchmark naive method')
     parser.add_argument('file_list', help='List of data files to read')
     read_mode = parser.add_mutually_exclusive_group(required=True)
     read_mode.add_argument('--nr-reads', type=int, help='Number of files to read')
     read_mode.add_argument('--single-read', action='store_true', help='Single read of all data')
+    read_mode.add_argument('--contig-read', action='store_true', help='Read the entire dataset once and store in memory')
     args = parser.parse_args()
 
     if args.single_read:
         avg_brightness = run_single(args.file_list)
+    elif args.contig_read:
+        avg_brightness = run_contig(args.file_list)
     else:
         avg_brightness = run(args.file_list, args.nr_reads)
     print(f'Average brightness: {avg_brightness:.2f}')

@@ -49,6 +49,16 @@ def run_single(h5_file_name, mode):
             avg_brightness += brightness(img)
     return avg_brightness/nr_images
 
+def run_contig(h5_file_name, mode):
+    nr_images = compute_nr_images(h5_file, mode)
+    with h5py.File(h5_file_name, 'r') as h5_file:
+        data = h5_file['data'][...]
+    avg_brightness = 0.0
+    idx = access_modes(mode)
+    for i in range(nr_images):
+        avg_brightness += brightness(data[idx(i)])
+    return avg_brightness/nr_images
+
 def main():
     parser = argparse.ArgumentParser(description='Benchmark HDF5 method')
     parser.add_argument('h5_file', help='HRDF5 file to read')
@@ -58,10 +68,13 @@ def main():
     read_mode = parser.add_mutually_exclusive_group(required=True)
     read_mode.add_argument('--nr-reads', type=int, help='Number of files to read')
     read_mode.add_argument('--single-read', action='store_true', help='Single read of all data')
+    read_mode.add_argument('--contig-read', action='store_true', help='Read all data contiguously')
     args = parser.parse_args()
 
     if args.single_read:
         avg_brightness = run_single(args.h5_file, args.mode)
+    elif args.contig_read:
+        avg_brightness = run_contig(args.h5_file, args.mode)
     else:
         avg_brightness = run(args.h5_file, args.nr_reads, args.mode)
     print(f'Average brightness: {avg_brightness:.2f}')
