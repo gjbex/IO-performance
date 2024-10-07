@@ -11,7 +11,6 @@
   <meta name="generator" content="quarto-1.5.55">
 
   <meta name="author" content="Geert Jan Bex">
-  <meta name="dcterms.date" content="2024-10-04">
   <title>I/O performance</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -337,7 +336,6 @@ Geert Jan Bex
 </div>
 </div>
 
-  <p class="date">2024-10-04</p>
 </section>
 <section id="overview" class="slide level2">
 <h2>Overview</h2>
@@ -472,9 +470,8 @@ Geert Jan Bex
 <h2>Many text files</h2>
 <div>
 <ul>
-<li class="fragment">Create binary file &amp; index</li>
-<li class="fragment">Use Arrow</li>
 <li class="fragment">Use TAR, ZIP</li>
+<li class="fragment">Use Arrow/Hugging Face dataset</li>
 </ul>
 </div>
 <div class="fragment">
@@ -491,6 +488,65 @@ Geert Jan Bex
 </div>
 </div>
 </div>
+</div>
+</section>
+<section id="perfornamce-comparison-texts" class="slide level2">
+<h2>Perfornamce comparison: texts</h2>
+<p>Random 200,000 reads of 100,000 text files (at most 1,024 chars)</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>data format</th>
+<th>time (s)</th>
+<th>metadata IOPs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>naive</td>
+<td>64.7</td>
+<td>100,000</td>
+</tr>
+<tr class="even">
+<td>ZIP file</td>
+<td>97.4</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>dataset</td>
+<td>22.7</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>Read 100,000 (at most 1,024 chars)</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>data format</th>
+<th>time (s)</th>
+<th>metadata IOPs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>naive</td>
+<td>74.7</td>
+<td>100,000</td>
+</tr>
+<tr class="even">
+<td>ZIP file</td>
+<td>3.1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>dataset</td>
+<td>17.2</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
 </div>
 </section>
 <section id="multidimensional-arrays" class="slide level2">
@@ -532,6 +588,51 @@ Geert Jan Bex
 <p>Mostly for numerical data</p>
 </div>
 </section>
+<section id="hdf5-dataset-layout" class="slide level2">
+<h2>HDF5 dataset layout</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>Data layout matters <span class="fragment">a lot!</span></p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:60%;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>layout</th>
+<th>time (s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>row-major</td>
+<td>144.4</td>
+</tr>
+<tr class="even">
+<td>column-major</td>
+<td>8760.6</td>
+</tr>
+<tr class="odd">
+<td>stacked</td>
+<td>8346.8</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:40%;">
+<p>Random 10,000 reads of 2,000 matrices (648 <span class="math inline">\(\times\)</span> 1152 <span class="math inline">\(\times\)</span> 4, <code>uint8</code>)</p>
+</div></div>
+</div>
+</section>
 <section id="image-data" class="slide level2">
 <h2>Image data</h2>
 <p>Many formats: JPEG, GIF, PNG, TIFF</p>
@@ -563,6 +664,111 @@ Geert Jan Bex
 <li class="fragment">Easy to use with Pytorch/TensorFlow</li>
 </ul>
 </div>
+</section>
+<section id="perfornamce-comparison-images" class="slide level2">
+<h2>Perfornamce comparison: images</h2>
+<p>Contiguous read</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>data format</th>
+<th>time (s)</th>
+<th>nr. metadata IOPs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>naive</td>
+<td>12.6</td>
+<td>2,000</td>
+</tr>
+<tr class="even">
+<td>HDF5</td>
+<td>15.7</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>datasets</td>
+<td>14.3</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>Reading individual files <span class="math inline">\(\mapsto\)</span> many more metadata IOPs</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="local-disks" class="slide level2">
+<h2>Local disks</h2>
+<p>Random 10,000 reads of 2,000 matrices (<span class="math inline">\(648 \times 1152 \times 4\)</span>, <code>uint8</code>)</p>
+<ul>
+<li>Scenario 1: read from lustre</li>
+<li>Scenario 2: copy from lustre to local SSD, read from SSD</li>
+</ul>
+<div class="fragment">
+<div style="font-size: 70%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 17%">
+<col style="width: 24%">
+<col style="width: 17%">
+<col style="width: 24%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>data format</th>
+<th>Scenario 1</th>
+<th></th>
+<th>Scenario 2</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><strong>time (s)</strong></td>
+<td><strong>metadata IOPs</strong></td>
+<td><strong>time (s)</strong></td>
+<td><strong>metadata IOPs</strong></td>
+</tr>
+<tr class="even">
+<td>naive</td>
+<td>41.2</td>
+<td>10,000</td>
+<td>11.0 + 36.9</td>
+<td>2,000</td>
+</tr>
+<tr class="odd">
+<td>HDF5</td>
+<td>144.4</td>
+<td>1</td>
+<td>10.6 + 41.2</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>datasets</td>
+<td>64.5</td>
+<td>3</td>
+<td>17.0 + 52.4</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </section></section>
 <section>
 <section id="applications-environments" class="title-slide slide level1 center">
@@ -578,12 +784,20 @@ Geert Jan Bex
 <div class="fragment">
 <p><a href="https://apptainer.org/">Apptainer</a> is supported on VSC-systems</p>
 </div>
+<div class="fragment">
+<div>
+<ul>
+<li class="fragment"><code>lmod</code> module loads + Python script module load <span class="math inline">\(\mapsto\)</span> 14 seconds, gazillion IOPs</li>
+<li class="fragment">start container (3 GB image) + Python scirpt module load <span class="math inline">\(\mapsto\)</span> 7 seconds, 2 IOPs</li>
+</ul>
+</div>
+</div>
 </section>
 <section id="best-practices-caveats" class="slide level2">
 <h2>Best practices &amp; caveats</h2>
 <div>
 <ul>
-<li class="fragment">Build containers on target system</li>
+<li class="fragment">Build containers on target system (<code>--fakeroot</code>)</li>
 <li class="fragment">Compile critical software components</li>
 <li class="fragment">Be weary of <code>.local</code> et al.</li>
 <li class="fragment">Use <a href="https://github.com/NVIDIA/hpc-container-maker">hpccm</a></li>
@@ -601,6 +815,21 @@ Geert Jan Bex
 <li>Understaning I/O constraints is crucial</li>
 <li>Adapting workflows is (relatively) easy</li>
 </ul>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>Remember: machine learning is <em>not</em> I/O bound: it’s all about metadata IOPs!</p>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="how-to-proceed" class="slide level2">
 <h2>How to proceed?</h2>
@@ -608,6 +837,7 @@ Geert Jan Bex
 <ul>
 <li>Linux intro</li>
 <li>HPC intro</li>
+<li>Containers on HPC</li>
 <li>Python for HPC</li>
 <li>Parallel programming with MPI</li>
 </ul>

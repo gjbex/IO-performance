@@ -2,7 +2,6 @@
 title: "I/O performance"
 author: "Geert Jan Bex"
 institution: "Vlaams Supercomputer Centrum"
-date: today
 format:
   revealjs:
     transiton: slide
@@ -120,14 +119,34 @@ Arrow
 ## Many text files
 
 ::: {.incremental}
-- Create binary file & index
-- Use Arrow
 - Use TAR, ZIP
+- Use Arrow/Hugging Face dataset
 :::
 
 ::: {.callout-tip .fragment}
 Read/write multiple "files" per operation
 :::
+
+
+## Perfornamce comparison: texts
+
+Random 200,000 reads of 100,000 text files (at most 1,024 chars)
+
+| data format | time (s) | metadata IOPs |
+|-------------|----------|---------------|
+| naive       |  64.7    |  100,000      |
+| ZIP file    |  97.4    |        1      |
+| dataset     |  22.7    |        3      |
+
+. . .
+
+Read 100,000 (at most 1,024 chars)
+
+| data format | time (s) | metadata IOPs |
+|-------------|----------|---------------|
+| naive       |  74.7    |  100,000      |
+| ZIP file    |   3.1    |        1      |
+| dataset     |  17.2    |        3      |
 
 
 ## Multidimensional arrays
@@ -156,6 +175,31 @@ Advantages
 . . .
 
 Mostly for numerical data
+
+
+## HDF5 dataset layout
+
+::: {.callout-tip}
+Data layout matters [a lot!]{.fragment}
+:::
+
+. . .
+
+::: {.columns}
+
+:::: {.column width="60%"}
+| layout       | time (s) |
+|--------------|----------|
+| row-major    |  144.4   |
+| column-major | 8760.6   |
+| stacked      | 8346.8   |
+::::
+
+:::: {.column width="40%"}
+Random 10,000 reads of 2,000 matrices (648 $\times$ 1152 $\times$ 4, `uint8`)
+::::
+
+:::
 
 
 ## Image data
@@ -191,6 +235,41 @@ How? [Use [Hugging Face 🤗 datasets library](https://huggingface.co/docs/datas
 :::
 
 
+## Perfornamce comparison: images
+
+Contiguous read
+
+| data format | time (s)  | nr. metadata IOPs    |
+|-------------|-----------|----------------------|
+| naive       |  12.6     |   2,000              |
+| HDF5        |  15.7     |       1              |
+| datasets    |  14.3     |       3              |
+
+. . .
+
+::: {.callout-warning}
+Reading individual files $\mapsto$ many more metadata IOPs
+:::
+
+
+## Local disks
+
+Random 10,000 reads of 2,000 matrices ($648 \times 1152 \times 4$, `uint8`)
+
+- Scenario 1: read from lustre
+- Scenario 2: copy from lustre to local SSD, read from SSD
+
+. . .
+
+::: {style="font-size: 70%;"}
+| data format | Scenario 1   |                   | Scenario 2   |                   |
+|-------------|--------------|-------------------|--------------|-------------------|
+|             | **time (s)** | **metadata IOPs** | **time (s)** | **metadata IOPs** |
+| naive       |  41.2        |   10,000          | 11.0 + 36.9  | 2,000             |
+| HDF5        | 144.4        |        1          | 10.6 + 41.2  |     1             |
+| datasets    |  64.5        |        3          | 17.0 + 52.4  |     3             |
+:::
+
 
 # Applications & environments
 
@@ -206,11 +285,18 @@ Solution: use containers
 
 [Apptainer](https://apptainer.org/) is supported on VSC-systems
 
+. . .
+
+::: {.incremental}
+- `lmod` module loads + Python script module load $\mapsto$ 14 seconds, gazillion IOPs
+- start container (3 GB image) + Python scirpt module load $\mapsto$ 7 seconds, 2 IOPs
+:::
+
 
 ## Best practices & caveats
 
 ::: {.incremental}
-- Build containers on target system
+- Build containers on target system (`--fakeroot`)
 - Compile critical software components
 - Be weary of `.local` et al.
 - Use [hpccm](https://github.com/NVIDIA/hpc-container-maker)
@@ -224,6 +310,12 @@ Solution: use containers
 - Understaning I/O constraints is crucial
 - Adapting workflows is (relatively) easy
 
+. . .
+
+::: {.callout-tip}
+Remember: machine learning is *not* I/O bound: it's all about metadata IOPs!
+:::
+
 
 ## How to proceed?
 
@@ -231,6 +323,7 @@ If necessary, take trainings
 
 - Linux intro
 - HPC intro
+- Containers on HPC
 - Python for HPC
 - Parallel programming with MPI
 
