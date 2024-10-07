@@ -130,23 +130,27 @@ Read/write multiple "files" per operation
 
 ## Perfornamce comparison: texts
 
-Random 200,000 reads of 100,000 text files (at most 1,024 chars)
+Random 200,000 reads of 100,000 "files" ($\le$ 1,024 chars)
 
+::: {style="font-size: 90%;"}
 | data format | time (s) | metadata IOPs |
 |-------------|----------|---------------|
 | naive       |  64.7    |  100,000      |
 | ZIP file    |  97.4    |        1      |
 | dataset     |  22.7    |        3      |
+:::
 
 . . .
 
-Read 100,000 (at most 1,024 chars)
+Read 100,000 "files" ($\le$ 1,024 chars)
 
+::: {style="font-size: 90%;"}
 | data format | time (s) | metadata IOPs |
 |-------------|----------|---------------|
 | naive       |  74.7    |  100,000      |
 | ZIP file    |   3.1    |        1      |
 | dataset     |  17.2    |        3      |
+:::
 
 
 ## Multidimensional arrays
