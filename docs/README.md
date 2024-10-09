@@ -34,7 +34,7 @@ Total duration: 1 hours
 ## Training materials
 
 Slides can be viewed directly on the
-[web](https://hpcleuven.github.io/IO-performance/docs/slides/io_performance.html).
+[web](https://gjbex.github.io/IO-performance/slides/io_performance.html).
 Example code and benchmarks can be found in the [GitHub
 repository](https://github.com/hpcleuven/IO-performance).
 
