@@ -4,8 +4,11 @@ author: "Geert Jan Bex"
 institution: "Vlaams Supercomputer Centrum"
 format:
   revealjs:
-    transiton: slide
     slide-number: true
+title-slide-attributes:
+  data-background-image: vsc-title-bg.png
+  data-background-size: contain
+  data-background-position: bottom
 code-annotations: select
 ---
 
