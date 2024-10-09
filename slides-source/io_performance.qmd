@@ -2,8 +2,10 @@
 title: "I/O performance"
 author: "Geert Jan Bex"
 institution: "Vlaams Supercomputer Centrum"
+date: today
 format:
   revealjs:
+    theme: [default, ./vsc.scss]
     slide-number: true
 title-slide-attributes:
   data-background-image: vsc-title-bg.png
