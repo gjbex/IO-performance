@@ -94,6 +94,7 @@ Reading CSV is... [very slow]{.fragment}
 . . .
 
 Alternatives:
+
 ::: {.incremental}
 - Parquet files
 - Arrow files
